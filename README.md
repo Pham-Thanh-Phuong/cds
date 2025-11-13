@@ -355,7 +355,7 @@ td_remote_ai/
 
 Dự án được xây dựng phục vụ **mục đích học tập và nghiên cứu** trong khuôn khổ môn học / đồ án **Chuyển đổi số doanh nghiệp** với bối cảnh giả lập **Công ty Thành Đô**.
 
-Tác giả: **Bùi Tuấn Dương**  
+Tác giả: **Phạm Thanh Phương**  
 Vui lòng trích dẫn nguồn nếu tái sử dụng hoặc phát triển thêm từ mã nguồn này.
 
 ---
