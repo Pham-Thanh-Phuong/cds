@@ -60,8 +60,8 @@ Hệ thống gồm các lớp chính:
 
 - **Lớp nghiệp vụ (Business Logic – JS Modules):**  
   - `auth.js` – Đăng nhập, phân quyền.  
-  - `data.js` – Đọc/ghi dữ liệu (LocalStorage hoặc API).
-- `payroll.js` – Tính lương từ log chấm công.  
+  - `data.js` – Đọc/ghi dữ liệu (LocalStorage hoặc API).  
+  - `payroll.js` – Tính lương từ log chấm công.  
   - `ui.js`, `router.js` – Render giao diện, điều hướng.  
 
 - **Lớp AI nội bộ:**  
@@ -141,8 +141,8 @@ Hệ thống gồm các lớp chính:
 ### 4.5 Tính lương
 
 - Tính lương dựa trên:
-  - Số giờ làm việc chuẩn trong kỳ.
-- Giờ OT (overtime) dựa trên log check-in/check-out.  
+  - Số giờ làm việc chuẩn trong kỳ.  
+  - Giờ OT (overtime) dựa trên log check-in/check-out.  
   - Lương cơ bản, phụ cấp, khấu trừ, hệ số OT.  
 - Xuất **bảng lương** ra CSV hoặc JSON.  
 - Lưu lại các kỳ lương đã chốt để dễ dàng tra cứu.
@@ -186,66 +186,8 @@ Pipeline AI được thiết kế theo từng bước rõ ràng:
 
 ---
 
-## 🛠️ 6. Triển khai hệ thống (Docker Compose)
+## 📈 6. Giám sát & nhật ký hệ thống
 
-Hệ thống có thể triển khai dạng nhiều service bằng **Docker Compose**.
-
-### 6.1 Ví dụ `docker-compose.yml` (tối giản)
-
-```yaml
-version: "3.9"
-services:
-  frontend:
-    build: ./frontend
-    ports:
-      - "8080:80"
-
-  backend:
-    build: ./backend
-    ports:
-      - "5000:5000"
-
-  ai_service:
-    image: ollama/ollama
-    volumes:
-      - ollama_data:/root/.ollama
-    ports:
-      - "11434:11434"
-
-  db:
-    image: postgres:15
-    environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: 123456
-      POSTGRES_DB: thanhdo_remote
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-  nginx:
-    image: nginx
-    volumes:
-      - ./deploy/nginx.conf:/etc/nginx/nginx.conf:ro
-    ports:
-      - "80:80"
-    depends_on:
-      - frontend
-      - backend
-      - ai_service
-
-volumes:
-  pgdata:
-  ollama_data:
-```
-
-### 6.2 Khởi chạy bằng Docker
-
-```bash
-docker-compose up -d
-```
-
----
-
-## 📈 7. Giám sát & nhật ký hệ thống
 Khi triển khai thực tế, hệ thống có thể được giám sát bằng:
 
 - **Prometheus:** Thu thập metrics (CPU, RAM, số lượng request, độ trễ API).  
@@ -255,7 +197,7 @@ Khi triển khai thực tế, hệ thống có thể được giám sát bằng:
 
 ---
 
-## 🖼️ 8. Giao diện chính
+## 🖼️ 7. Giao diện chính
 
 Một số màn hình chính:
 
@@ -283,7 +225,7 @@ Một số màn hình chính:
 
 ---
 
-## ⭐ 9. Điểm nổi bật
+## ⭐ 8. Điểm nổi bật
 
 - 🔒 **Bảo mật dữ liệu:** AI chạy nội bộ (Ollama), không gửi dữ liệu ra Internet.  
 - ⚡ **Nhanh & nhẹ:** SPA thuần JS, không cần framework nặng.  
@@ -293,9 +235,9 @@ Một số màn hình chính:
 
 ---
 
-## 🧪 10. Khởi chạy nhanh (Local Dev)
+## 🧪 9. Khởi chạy nhanh (Local Dev)
 
-### 10.1 Chạy bản Frontend tĩnh
+### 9.1 Chạy bản Frontend tĩnh
 
 ```bash
 git clone https://github.com/yourname/td_remote_ai.git
@@ -312,7 +254,7 @@ Mở trình duyệt tại:
 - `http://localhost:3000` (nếu dùng `npx serve .`)  
 - `http://localhost:8000` (nếu dùng `python -m http.server`)  
 
-### 10.2 Bật Ollama
+### 9.2 Bật Ollama
 
 ```bash
 # Cài ollama trước, sau đó:
@@ -327,7 +269,7 @@ Trong phần cấu hình AI của ứng dụng, đặt:
 
 ---
 
-## 📁 11. Cấu trúc thư mục tham khảo
+## 📁 10. Cấu trúc thư mục tham khảo
 
 ```bash
 td_remote_ai/
@@ -351,7 +293,7 @@ td_remote_ai/
 
 ---
 
-## 📜 12. Giấy phép
+## 📜 11. Giấy phép
 
 Dự án được xây dựng phục vụ **mục đích học tập và nghiên cứu** trong khuôn khổ môn học / đồ án **Chuyển đổi số doanh nghiệp** với bối cảnh giả lập **Công ty Thành Đô**.
 
@@ -359,6 +301,7 @@ Tác giả: **Phạm Thanh Phương**
 Vui lòng trích dẫn nguồn nếu tái sử dụng hoặc phát triển thêm từ mã nguồn này.
 
 ---
+Vui lòng trích dẫn nguồn nếu tái sử dụng hoặc phát triển thêm từ mã nguồn này.
 
-🎉 Cảm ơn bạn đã sử dụng TD_REMOTE_AI!  
-Nếu bạn thấy dự án hữu ích, hãy ⭐ trên GitHub để ủng hộ tác giả.
+---
+
